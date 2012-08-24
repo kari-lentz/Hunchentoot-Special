@@ -235,6 +235,7 @@
            #:reset-session-secret
            #:return-code
            #:return-code*
+	   #:reply-reason-phrase
            #:rfc-1123-date
            #:script-name
            #:script-name*

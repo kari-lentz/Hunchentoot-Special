@@ -54,12 +54,17 @@ digits."
       (format s "~VR" base
               (random base *the-random-state*)))))
 
-(defun reason-phrase (return-code)
+(defun reason-phrase (return-code &optional (reply *reply*))
   "Returns a reason phrase for the HTTP return code RETURN-CODE
 \(which should be an integer) or NIL for return codes Hunchentoot
-doesn't know."
-  (gethash return-code *http-reason-phrase-map* 
-           "No reason phrase known"))
+\doesn't know.  If the reply-reason-phrase slot of the current 
+\reply object has been set, it used and the return-code is ignored.  
+\Otherwise the return code is used to consult a hash table of stock 
+\phrases"
+  (if (and reply (reply-reason-phrase reply))
+      (reply-reason-phrase *reply*)
+      (gethash return-code *http-reason-phrase-map* 
+	       "No reason phrase known")))
 
 (defgeneric assoc* (thing alist)
   (:documentation "Similar to CL:ASSOC, but 'does the right thing' if

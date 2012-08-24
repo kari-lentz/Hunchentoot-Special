@@ -48,6 +48,9 @@ modify this slot.")
                 :documentation "The http return code of this
 reply.  The return codes Hunchentoot can handle are defined in
 specials.lisp.")
+   (reply-reason-phrase :initform nil
+		  :accessor reply-reason-phrase
+		  :documentation "overrides the stock reason phrase just for this reply so one can output a status line of '500 Some database failure' instead of '500 Internal Server Error'.  If nil, this field will be ignored and the stock reason phrase will be used")
    (external-format :initform *hunchentoot-default-external-format*
                     :accessor reply-external-format
                     :documentation "The external format of the reply -
