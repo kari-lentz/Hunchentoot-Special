@@ -83,7 +83,9 @@ The default port for SSL-ACCEPTOR instances is 443 instead of 80"))
                     (cl+ssl:make-ssl-server-stream stream
                                                    :certificate (acceptor-ssl-certificate-file acceptor)
                                                    :key (acceptor-ssl-privatekey-file acceptor)
-                                                   :password (acceptor-ssl-privatekey-password acceptor))))
+                                                   :password (acceptor-ssl-privatekey-password acceptor)
+						   :read-timeout (acceptor-read-timeout acceptor)
+						   :write-timeout (acceptor-write-timeout acceptor))))
 
 ;; LispWorks implementation
 
