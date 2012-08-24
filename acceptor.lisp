@@ -322,7 +322,8 @@ they're using secure connections - see the SSL-ACCEPTOR class."))
                   ;; abort if there's an error which isn't caught inside
                   (lambda (cond)
                     (log-message* *lisp-errors-log-level*
-                                  "Error while processing connection: ~A" cond)
+                                  "Error while processing connection: ~Awill try to close any connection" cond)
+		    (handler-case (usocket:socket-close socket) (error(error)(log-message* *lisp-errors-log-level* "while closing socket caught ~a" error)))
                     (return-from process-connection)))
                  (warning
                   ;; log all warnings which aren't caught inside

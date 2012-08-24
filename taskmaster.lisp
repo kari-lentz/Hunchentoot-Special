@@ -370,7 +370,8 @@ is set up via PROCESS-REQUEST."
           ;; need to bind *ACCEPTOR* so that LOG-MESSAGE* can do its work.
           (let ((*acceptor* (taskmaster-acceptor taskmaster)))
             (log-message* *lisp-errors-log-level*
-                         "Error while creating worker thread for new incoming connection: ~A" cond)))))
+                         "Error while creating worker thread for new incoming connection will try to close this connection: ~A" cond)
+	    (handler-case (usocket:socket-close socket) (error(error)(log-message* *lisp-errors-log-level* "while closing socket caught ~a" error)))))))
 
 ;; LispWorks implementation
 
